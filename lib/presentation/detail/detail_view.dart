@@ -1,5 +1,6 @@
 import 'package:dreamlabs/data/mapper/mapper.dart';
 import 'package:dreamlabs/domain/model/model.dart';
+import 'package:dreamlabs/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class DetailView extends StatefulWidget {
@@ -15,8 +16,9 @@ class _DetailViewState extends State<DetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ColorManager.primary,
         elevation: 0,
+        iconTheme: IconThemeData(color: ColorManager.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),

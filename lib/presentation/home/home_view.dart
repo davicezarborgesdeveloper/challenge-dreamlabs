@@ -56,7 +56,10 @@ class _HomeViewState extends State<HomeView> {
                 itemBuilder: (context, index) {
                   Post post = _viewModel.listPost.value.posts[index];
                   return ListTile(
-                    title: Text(post.title ?? empty),
+                    title: Text(
+                      post.title ?? empty,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     subtitle: Text(post.body ?? empty),
                     onTap: () {
                       Navigator.of(context).push(
