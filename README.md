@@ -1,4 +1,4 @@
- <img src="assets/readme/dreamlabs.png" width="400"><br><br>
+ <img src="assets/images/dreamlabs.png" width="400"><br><br>
 
 # Desafio Flutter
 
