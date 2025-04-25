@@ -29,3 +29,5 @@ Corpo do post
 2. Ao clicar em algum dos itens, abra uma segunda tela mostrando
 apenas o Título e o corpo do item clicado.
 3. Rode esse aplicativo no seu telefone Android ou iPhone
+## Versões do README
+[Português BR](./README.md) | [Ingles US](./README-en.md)
