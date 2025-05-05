@@ -1,4 +1,4 @@
-import 'package:dreamlabs/domain/home_usecase.dart';
+import 'package:dreamlabs/domain/usecase/home_usecase.dart';
 import 'package:dreamlabs/presentation/home/home_viewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';

@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:dreamlabs/domain/model/model.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/home_usecase.dart';
+import '../../domain/usecase/home_usecase.dart';
 
 enum FlowState {
   content,
