@@ -76,15 +76,6 @@ class _HomeViewState extends State<HomeView> {
             }
             return Container();
           }),
-      // body: ValueListenableBuilder(
-      //     valueListenable: _viewModel.listPost,
-      //     builder: (context, data, child) {
-      //       return Container(
-      //         height: 100,
-      //         width: 100,
-      //         color: Colors.red,
-      //       );
-      //     }),
     );
   }
 }
