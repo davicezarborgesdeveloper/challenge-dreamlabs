@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:dreamlabs/domain/model/model.dart';
@@ -33,8 +34,9 @@ class HomeViewModel {
     await Future.delayed(const Duration(seconds: 3));
     (await _homeUseCase.execute(Void)).fold((failure) {
       state.value = FlowState.error;
-    }, (success) {
-      listPost.value = success;
+      log('message ${failure.code}');
+    }, (data) {
+      listPost.value = data;
       state.value = FlowState.success;
     });
   }

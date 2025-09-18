@@ -6,6 +6,7 @@ import 'package:dreamlabs/presentation/resources/assets_manager.dart';
 import 'package:dreamlabs/presentation/resources/screen_manager.dart';
 import 'package:dreamlabs/presentation/resources/value_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../resources/color_manager.dart';
 
@@ -45,12 +46,14 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: ColorManager.primary,
+          color: ColorManager.primarySwatchMap[900],
         ),
         child: Center(
           child: SizedBox(
             width: context.screenWidth - AppPadding.p80,
-            child: Image.asset(ImageAssets.logo),
+            child: SvgPicture.asset(
+              ImageAssets.logo,
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dreamlabs/data/mapper/mapper.dart';
@@ -24,6 +25,7 @@ class RepositoryImpl implements Repository {
         final response = await _remoteDataSource.getHome();
         return Right(response.toDomain());
       } on DioException catch (error) {
+        log('$error');
         return Left(Failure(0, 'message'));
       }
     } else {
