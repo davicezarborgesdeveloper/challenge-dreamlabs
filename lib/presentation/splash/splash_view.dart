@@ -46,7 +46,7 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: ColorManager.primarySwatchMap[900],
+          color: ColorManager.primarySwatchMap[500],
         ),
         child: Center(
           child: SizedBox(
