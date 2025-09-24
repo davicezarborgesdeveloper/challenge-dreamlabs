@@ -36,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 4,
-        backgroundColor: ColorManager.white.withOpacity(.15),
+        backgroundColor: ColorManager.primarySwatch[300],
         toolbarHeight: kToolbarHeight + AppMargin.m16,
         titleSpacing: AppSize.s16,
         title: Row(
@@ -73,10 +73,19 @@ class _HomeViewState extends State<HomeView> {
             if (_viewModel.state.value == FlowState.success) {
               return ListView.separated(
                 itemCount: _viewModel.postCount,
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: AppSize.s8),
                 itemBuilder: (context, index) {
                   Post post = _viewModel.listPost.value.posts[index];
-                  return PostTile(post);
+                  return Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      AppPadding.p16,
+                      index == 0 ? AppPadding.p16 : 0,
+                      AppPadding.p16,
+                      index == _viewModel.postCount - 1 ? AppPadding.p16 : 0,
+                    ),
+                    child: PostTile(post),
+                  );
                 },
               );
             }
