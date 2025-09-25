@@ -18,8 +18,10 @@ class HomeViewModel {
   HomeViewModel(this._homeUseCase);
 
   final state = ValueNotifier(FlowState.content);
+  final search = TextEditingController();
 
-  final listPost = ValueNotifier<HomeData>(HomeData(<Post>[]));
+  final list = <Post>[];
+  final listPost = ValueNotifier<HomeData>(HomeData(posts: <Post>[]));
 
   void start() {
     _getHome();
@@ -29,6 +31,14 @@ class HomeViewModel {
     return listPost.value.posts.length;
   }
 
+  void searchQuery(String query) {
+    final searchQuery = query.toLowerCase();
+    final filtered = list
+        .where((p) => p.title!.toLowerCase().contains(searchQuery))
+        .toList();
+    listPost.value = listPost.value.copyWith(posts: filtered);
+  }
+
   _getHome() async {
     state.value = FlowState.loading;
     await Future.delayed(const Duration(seconds: 3));
@@ -36,7 +46,8 @@ class HomeViewModel {
       state.value = FlowState.error;
       log('message ${failure.code}');
     }, (data) {
-      listPost.value = data;
+      list.addAll(data.posts);
+      listPost.value.posts = list;
       state.value = FlowState.success;
     });
   }

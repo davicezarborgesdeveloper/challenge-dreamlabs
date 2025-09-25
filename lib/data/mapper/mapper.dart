@@ -11,7 +11,7 @@ extension HomeResponseMapper on HomeResponse? {
         (this?.posts.map((post) => post.toDomain()) ?? const Iterable.empty())
             .cast<Post>()
             .toList();
-    return HomeData(mapperPosts);
+    return HomeData(posts: mapperPosts);
   }
 }
 

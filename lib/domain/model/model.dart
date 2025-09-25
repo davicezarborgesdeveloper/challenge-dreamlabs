@@ -12,7 +12,17 @@ class Post {
 }
 
 class HomeData {
+  HomeData({
+    required this.posts,
+  });
+
   List<Post> posts;
 
-  HomeData(this.posts);
+  HomeData copyWith({
+    List<Post>? posts,
+  }) {
+    return HomeData(
+      posts: posts ?? this.posts,
+    );
+  }
 }

@@ -17,17 +17,30 @@ class DetailView extends StatefulWidget {
 }
 
 class _DetailViewState extends State<DetailView> {
+  final _bodyKey = GlobalKey();
+  final ValueNotifier<double> _bodyHeight = ValueNotifier<double>(0);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _measureBody());
+  }
+
+  void _measureBody() {
+    final ctx = _bodyKey.currentContext;
+    if (ctx == null) return;
+    final box = ctx.findRenderObject() as RenderBox?;
+    if (box == null) return;
+    _bodyHeight.value = box.size.height;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: ColorManager.primary,
-      //   elevation: 0,
-      //   iconTheme: IconThemeData(color: ColorManager.white),
-      // ),
       body: Stack(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -47,7 +60,8 @@ class _DetailViewState extends State<DetailView> {
                   ),
                 ),
                 child: Text(
-                  widget.post.title ?? empty,
+                  key: _bodyKey,
+                  widget.post.title?.trim() ?? empty,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: AppSize.s24,
@@ -64,64 +78,67 @@ class _DetailViewState extends State<DetailView> {
               ),
             ],
           ),
-          Positioned(
-            top: AppMargin.m220,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: AppMargin.m16),
+          ValueListenableBuilder(
+            valueListenable: _bodyHeight,
+            builder: (context, value, child) => Positioned(
+              top: value + (AppPadding.p60 * 2),
               child: Container(
-                width: context.screenWidth - (AppMargin.m16 * 2),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p24, vertical: AppPadding.p16),
-                decoration: BoxDecoration(
-                    // color: ColorManager.primary.withOpacity(.5),
-                    borderRadius: BorderRadius.circular(16)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(AppPadding.p10),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorManager.primary,
-                          ),
-                          child: SizedBox(
-                            height: 26,
-                            width: 20,
-                            child: SvgPicture.asset(
-                              ImageAssets.logod,
+                margin: const EdgeInsets.symmetric(horizontal: AppMargin.m16),
+                child: Container(
+                  width: context.screenWidth - (AppMargin.m16 * 2),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p24, vertical: AppPadding.p16),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(16)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(AppPadding.p10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorManager.primary,
+                            ),
+                            child: SizedBox(
+                              height: 26,
+                              width: 20,
+                              child: SvgPicture.asset(
+                                ImageAssets.logod,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: AppPadding.p16),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppPadding.p4,
-                              horizontal: AppPadding.p8),
-                          decoration: BoxDecoration(
-                              color: ColorManager.white.withOpacity(.25),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Text(
-                            'post #${widget.post.id}',
-                            style: TextStyle(
-                                color: ColorManager.white,
-                                fontSize: AppSize.s12),
+                          const SizedBox(width: AppPadding.p16),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: AppPadding.p4,
+                                horizontal: AppPadding.p8),
+                            decoration: BoxDecoration(
+                                color: ColorManager.white.withOpacity(.25),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Text(
+                              'post #${widget.post.id}',
+                              style: TextStyle(
+                                  color: ColorManager.white,
+                                  fontSize: AppSize.s12),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      'userId #${widget.post.userId}',
-                      style: TextStyle(
-                          color: ColorManager.white.withOpacity(.75),
-                          fontSize: AppSize.s12),
-                    ),
-                  ],
+                        ],
+                      ),
+                      Text(_bodyHeight.value.toString()),
+                      Text(
+                        'userId #${widget.post.userId}',
+                        style: TextStyle(
+                            color: ColorManager.white.withOpacity(.75),
+                            fontSize: AppSize.s12),
+                      ),
+                    ],
+                  ),
+                ).asGlass(
+                  tintColor: ColorManager.primary,
+                  clipBorderRadius: BorderRadius.circular(16.0),
                 ),
-              ).asGlass(
-                tintColor: ColorManager.primary,
-                clipBorderRadius: BorderRadius.circular(16.0),
               ),
             ),
           ),
